@@ -1,3 +1,4 @@
+from decouple import config
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -13,12 +14,12 @@ main_url = 'https://weather.com/'
 
 def get_source_code(url, city):
     try:
-        service = Service(executable_path='/home/ljazz/Desktop/projects/selenium/pytoday/chromedriver/chromedriver')
+        service = Service(executable_path=config('EXEC_PATH'))
 
         options = Options()
         options.page_load_strategy = 'normal'
         options.add_argument('--no-sandbox')
-        options.add_argument('user-data-dir=/home/ljazz/SeleniumProfile')
+        options.add_argument(f'user-data-dir={config("SELENIUM_PROFILE")}')
         driver = webdriver.Chrome(service=service, options=options)
         driver.get(url)
 
